@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns=http://www.w3.org/1999/xhtml>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="./Public/js/jquery.min.js"></script>
+  	<style>
+		* {margin:0; padding:0;}
+		input,button{outline:none} 
+		html { padding:80px; }
+		body {
+    		font-family: 'Microsoft YaHei', sans-serif;
+    		color:#444;
+			font-size:14px;
+			overflow:hidden;
+			width:100%;
+			clear:both;
+		}
+		.clear{ clear:both; }
+		/* 更改窗口尺寸的样式在这里 */
+		.size-sz { width:4px; position: absolute; right:32px; top:110px; bottom:32px; cursor:e-resize; background:red; color:#fff; }
+
+		#window {
+			width:100%;
+			height:100%;
+			border:40px solid transparent;
+			border-radius: 5px;
+			border-image-source: url(./image/bgEx.png);
+			border-image-slice: 48 fill;
+			box-sizing:border;
+		}
+		#all {
+			width:100%;
+			height:100%;
+			border-radius: 5px;
+			margin-top: -7px;
+			margin-left:-7px;
+		}
+		#header {
+			float:left;
+			width:100%;
+			height:30px;
+			color:#fff;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+		#main {
+			width:100%;
+		}
+		.top {
+			width:100%;
+			height:130px;
+			background-color: #3399CC;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+		.form {
+			width:264px;
+			margin:15px auto;
+		}
+		.form-group {
+			float:left;
+			margin-bottom:10px;
+			clear:both;
+		}
+		.form .control-label {
+			width:44px;
+			float:left;
+			text-align:right;
+			line-height: 28px;
+			padding-right:8px;
+		}
+		.form .form-control {
+			float:left;
+			width:200px;
+			height:28px;
+			border:1px solid rgb(162,178,193);
+			border-radius: 3px;
+			padding:0 5px;
+			font-size:14px;
+			font-family: 'Microsoft YaHei', sans-serif;
+		}
+		.form .form-control:hover {
+			border:1px solid #6699CC;
+		}
+		.icon_user { background:url(./image/user.png) 184px 4px no-repeat; }
+		.icon_pwd { background:url(./image/pwd.png) 184px 4px no-repeat; }
+		.icon_check_on { background:url(./image/check_on.png) no-repeat;display: block;
+ clear: left;
+ float: left; }
+		.pull-right { float:right; }
+		input[type="checkbox"] {
+			-webkit-appearance: none;
+			vertical-align: middle;
+			width:26px;
+			height:26px;
+			background:url(./image/check_off.png) center center no-repeat;
+			background-size:18px 18px;
+		}
+		input[type="checkbox"]:checked {
+			background:url(./image/check_on.png) center center no-repeat;
+			background-size:18px 18px;
+		}
+		.btn {
+			padding:6px 15px;
+			background: rgb(65,138,201);
+			border:0;
+			border-radius: 3px;
+			-webkit-transition: background 1s;
+			color:#fff;
+			display:inline-block;
+			white-space:nowrap;
+			user-select:none;
+			cursor:pointer;
+		}
+		.btn:hover {
+			background-color: rgb(47,112,168);
+		}
+		.title {
+			clear:left;
+			float:left;
+			font-weight:400;
+			line-height: 30px;
+			font-size:16px;
+			padding-left: 10px;
+		}
+		.group-control { border-top-right-radius: 5px }
+		.group-control button { 
+			width:30px; 
+			height:30px; 
+			background-blend-mode: multiply; 
+			background-image:url(./image/btn-control.png);
+			background-repeat:no-repeat;
+			background-color: rgba(255,255,255,0);
+			display:block; 
+			float:right; 
+			border:0;
+			margin:0;
+			padding:0;
+		}
+		.group-control button.btn-close { background-position:0 0; border-top-right-radius: 5px }
+		.group-control button.btn-close:hover { background-position:0 -30px; }
+		.group-control button.btn-close:active { background-position:0 -60px; }
+		.group-control button.btn-max { background-position:-30px 0; }
+		.group-control button.btn-max:hover { background-position:-30px -30px; }
+		.group-control button.btn-max:active { background-position:-30px -60px; }
+		.group-control button.btn-restore { background-position:-60px 0; }
+		.group-control button.btn-restore:hover { background-position:-60px -30px; }
+		.group-control button.btn-restore:active { background-position:-60px -90px; }
+		.group-control button.btn-min { background-position:-90px 0; }
+		.group-control button.btn-min:hover { background-position:-90px -30px; }
+		.group-control button.btn-min:active { background-position:-90px -60px; }
+		.group-control button.btn-skin { background-position:-120px 0; }
+		.group-control button.btn-skin:hover { background-position:-120px -30px; }
+		.group-control button.btn-skin:active { background-position:-120px -60px; }
+  	</style>
+</head>
+<body>
+<div id="window">
+	<div id="all">
+		<div id="header" onmousedown="eMsg('move')">
+			<div class="title" id="window_title">标题</div>
+			<div class="group-control">
+				<button class="btn-close" onmousedown="eMsg('close')"></button>
+				<button class="btn-min" onmousedown="eMsg('min')"></button>
+			</div>
+		</div>
+		<div id="main" >
+			<div class="top" id="banner" ></div>
+			<form action="javascript:return false" class="form">
+				<div class="form-group">
+					<label for="" class="control-label">用户名</label>
+					<input type="text" class="form-control icon_user" id="login_user">
+				</div>
+				<div class="form-group">
+					<label for="" class="control-label">密♂码</label>
+					<input type="password" class="form-control icon_pwd" id="login_pwd">
+				</div>
+				<div class="form-group pull-right">
+					<input type="checkbox" id="login_save" class="icon_check_on">
+					<label for="login_save" style="line-height:24px">记住我</label>
+					&nbsp;&nbsp;
+					<button class="btn" onclick="btn_login()">登录</button>
+					<button class="btn" onclick="do_Close()">取消</button>
+				</div>
+			</form>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="size-sz" onmousedown="eMsg('size-e')">移动我试试? </div>
+	<script>
+		function btn_login() {
+			var login_user = document.getElementById("login_user").value;
+			var login_pwd = document.getElementById("login_pwd").value;
+			var login_save = document.getElementById("login_save").checked;
+			do_Login(login_user, login_pwd, login_save);
+		}
+
+	window.onload = update();
+
+	function update(){
+		var width  = $("#window").width();
+		var height = $("#window").height();
+		$("#all").css("width", width + 14 +"px");
+		$("#all").css("height", height + 14 +"px");
+	}
+	</script>
+</body>
+</html>

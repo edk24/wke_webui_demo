@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>  
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="./Public/css/bootstrap.min.css" rel="stylesheet">
+	<script src="./Public/js/jquery.min.js"></script>
+	<script src="./Public/js/bootstrap.min.js"></script>
+
+	<style>
+		* {margin:0; padding:0;}
+		input,button{outline:none} 
+		body {
+    		font-family: 'Microsoft YaHei', sans-serif;
+    		color:#444;
+			font-size:14px;
+			overflow:hidden;
+			width:100%;
+			background-color:transparent;
+		}
+		#window {
+			width:500px;
+			height:360px;
+			border:40px solid transparent;
+			border-radius: 5px;
+			border-image-source: url(./image/bgx.png);
+			border-image-slice: 48 fill;
+			box-sizing:border;
+		}
+		#all {
+			width:680px;
+			height:100%;
+			border-radius: 5px;
+			background-color:#EDEDED;
+			position:relative;
+			left:-6px;
+			top:-6px;
+			right:12px;
+		}
+		#header {
+			width:100%;
+			height:30px;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+			background: -webkit-linear-gradient(top, #f4f6f7, #f9f9f9);
+		}
+		#top { clear:both; }
+		#title {
+			line-height: 30px;
+			font-size:11pt;
+			padding:0 8px;
+			float:left;
+		}
+		#banner {
+			width:100%;
+			height:72px;
+			background:#fff;
+			border-top: 1px solid #f4f6f7;
+			border-bottom: 1px solid #f4f6f7;
+			background-size:100% 100%;
+			float:left;
+		}
+		#main {
+			padding:8px;
+			float:left;
+		}
+		#group-control { border-top-right-radius: 5px }
+		#group-control button { 
+			width:30px; 
+			height:30px; 
+			background-blend-mode: multiply; 
+			background-image:url(./image/btn-control.png);
+			background-repeat:no-repeat;
+			background-color: rgba(255,255,255,0);
+			display:block; 
+			float:right; 
+			border:0;
+			margin:0;
+			padding:0;
+		}
+		#group-control button.btn-close { background-position:0 0; border-top-right-radius: 5px }
+		#group-control button.btn-close:hover { background-position:0 -30px; }
+		#group-control button.btn-close:active { background-position:0 -60px; }
+		#group-control button.btn-max { background-position:-30px 0; }
+		#group-control button.btn-max:hover { background-position:-30px -30px; }
+		#group-control button.btn-max:active { background-position:-30px -60px; }
+		#group-control button.btn-restore { background-position:-60px 0; }
+		#group-control button.btn-restore:hover { background-position:-60px -30px; }
+		#group-control button.btn-restore:active { background-position:-60px -90px; }
+		#group-control button.btn-min { background-position:-90px 0; }
+		#group-control button.btn-min:hover { background-position:-90px -30px; }
+		#group-control button.btn-min:active { background-position:-90px -60px; }
+		#group-control button.btn-skin { background-position:-120px 0; }
+		#group-control button.btn-skin:hover { background-position:-120px -30px; }
+		#group-control button.btn-skin:active { background-position:-120px -60px; }
+	</style>
+</head>
+<body>
+<div id="window">
+	<div id="all" onmousedown="eMsg('move')">
+		<div id="header">
+			<div id="top">
+				<div id="title">Login</div>
+				<div id="group-control">
+					<button class="btn-close" onmousedown="eMsg('close')"></button>
+					<button class="btn-min" onmousedown="eMsg('min')"></button>
+				</div>
+			</div>
+			<div id="banner"></div>
+			<div id="main">
+				<form class="bs-example bs-example-form" role="form" style="width:72%; margin:5px auto">
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+						<input type="text" class="form-control" placeholder="Username">
+					</div>
+					<br>
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+						<input type="password" class="form-control" placeholder="Password">
+					</div>
+					<br />
+					
+						<input type="submit" class="btn btn-block btn-sm btn-primary" value="登 录 系 统"  />
+				</form>
+			</div>
+			<div id="footer">
+				
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+	window.onload=function(){
+		var width  = $("#window").width();
+		var height = $("#window").height();
+		$("#all").css("width", width + 12 +"px");
+		$("#all").css("height", height + 12 +"px");
+	}
+	</script>
+</body>
+</html>
